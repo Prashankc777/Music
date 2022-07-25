@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Music_APi.Data;
 
 namespace Music_APi
 {
@@ -32,6 +34,9 @@ namespace Music_APi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Music_APi", Version = "v1" });
             });
+
+            services.AddDbContext<ApiDbContext>(option =>
+                option.UseSqlServer(@"data source = PRASHAN-PC; Initial Catalog=MusicDB; Integrated Security=True;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +48,8 @@ namespace Music_APi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Music_APi v1"));
             }
+            //data base hercha chaina vane naya banaucha 
+            //apiDbContext.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
 
